@@ -1,12 +1,20 @@
 import Fastify from 'fastify'
 import { reposRoutes } from './routes/repos'
+import { config, validateConfig } from './config'
+import { errorHandler } from './middleware/errorHandler'
+
+// Validate configuration at startup
+validateConfig()
 
 const server = Fastify({
   logger: true,
 })
 
+// Register error handler
+server.setErrorHandler(errorHandler)
+
 server.register(import('@fastify/cors'), {
-  origin: true,
+  origin: config.cors.origin,
 })
 
 server.register(reposRoutes, { prefix: '/api/repos' })
@@ -14,10 +22,12 @@ server.register(reposRoutes, { prefix: '/api/repos' })
 const start = async () => {
   try {
     await server.listen({
-      port: 3001,
-      host: '0.0.0.0',
+      port: config.server.port,
+      host: config.server.host,
     })
-    server.log.info('Server listening on http://localhost:3001')
+    server.log.info(
+      `Server listening on http://localhost:${config.server.port}`,
+    )
   } catch (err) {
     server.log.error(err)
     process.exit(1)
