@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify'
-import { githubService } from '../services/github.service'
-import { SearchQuery, SearchResponse } from '../types'
+import { githubService } from '../services/github.service.js'
+import type { SearchQuery, SearchResponse } from '../types/index.js'
 
 /**
  * Repository routes plugin

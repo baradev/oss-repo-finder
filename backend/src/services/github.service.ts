@@ -1,9 +1,9 @@
-import { config } from '../config'
-import {
+import { config } from '../config/index.js'
+import type {
   GitHubSearchResponse,
   Repository,
   SearchQuery,
-} from '../types'
+} from '../types/index.js'
 
 /**
  * Service for interacting with GitHub API

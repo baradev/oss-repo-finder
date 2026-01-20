@@ -1,7 +1,7 @@
 import Fastify from 'fastify'
-import { reposRoutes } from './routes/repos'
-import { config, validateConfig } from './config'
-import { errorHandler } from './middleware/errorHandler'
+import { reposRoutes } from './routes/repos.js'
+import { config, validateConfig } from './config/index.js'
+import { errorHandler } from './middleware/errorHandler.js'
 
 // Validate configuration at startup
 validateConfig()
