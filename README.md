@@ -5,10 +5,6 @@ A full-stack application for discovering open source repositories on GitHub. Bui
 ## Features
 
 - 🔍 Search repositories by language and keywords
-- ⭐ Sort by stars, recently updated, or help-wanted issues
-- 🎨 Clean, responsive UI
-- 🚀 Fast backend API
-- 📦 Well-architected codebase following best practices
 
 ## Project Structure
 
@@ -64,12 +60,14 @@ open-source-finder/
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <your-repo-url>
    cd open-source-finder
    ```
 
 2. **Set up the backend**
+
    ```bash
    cd backend
    npm install
@@ -80,6 +78,7 @@ open-source-finder/
    ```
 
 3. **Set up the frontend**
+
    ```bash
    cd ../frontend
    npm install
@@ -92,9 +91,11 @@ open-source-finder/
 ### Running the Application
 
 1. **Start the backend** (from `backend/` directory)
+
    ```bash
    npm run dev
    ```
+
    The API will be available at `http://localhost:3001`
 
 2. **Start the frontend** (from `frontend/` directory, in a new terminal)
@@ -106,6 +107,7 @@ open-source-finder/
 ### Building for Production
 
 **Backend:**
+
 ```bash
 cd backend
 npm run build    # Compiles TypeScript to dist/
@@ -113,6 +115,7 @@ npm start        # Runs the compiled code
 ```
 
 **Frontend:**
+
 ```bash
 cd frontend
 npm run build    # Builds optimized production bundle to dist/
@@ -123,18 +126,18 @@ npm run preview  # Preview the production build
 
 ### Backend (`backend/.env`)
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `PORT` | Server port | `3001` |
-| `HOST` | Server host | `0.0.0.0` |
-| `NODE_ENV` | Environment | `development` |
-| `GITHUB_TOKEN` | GitHub API token (optional) | - |
-| `CORS_ORIGIN` | Allowed CORS origin | `http://localhost:5173` |
+| Variable       | Description                 | Default                 |
+| -------------- | --------------------------- | ----------------------- |
+| `PORT`         | Server port                 | `3001`                  |
+| `HOST`         | Server host                 | `0.0.0.0`               |
+| `NODE_ENV`     | Environment                 | `development`           |
+| `GITHUB_TOKEN` | GitHub API token (optional) | -                       |
+| `CORS_ORIGIN`  | Allowed CORS origin         | `http://localhost:5173` |
 
 ### Frontend (`frontend/.env`)
 
-| Variable | Description | Default |
-|----------|-------------|---------|
+| Variable       | Description     | Default                 |
+| -------------- | --------------- | ----------------------- |
 | `VITE_API_URL` | Backend API URL | `http://localhost:3001` |
 
 ## GitHub API Token
@@ -149,12 +152,14 @@ To get higher rate limits from GitHub API:
 ## Tech Stack
 
 **Frontend:**
+
 - React 19
 - TypeScript
 - Vite
 - ESLint
 
 **Backend:**
+
 - Node.js
 - Fastify
 - TypeScript
@@ -175,11 +180,13 @@ To get higher rate limits from GitHub API:
 ## Scripts
 
 ### Backend
+
 - `npm run dev` - Start development server with hot reload
 - `npm run build` - Compile TypeScript
 - `npm start` - Run production server
 
 ### Frontend
+
 - `npm run dev` - Start Vite dev server
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build

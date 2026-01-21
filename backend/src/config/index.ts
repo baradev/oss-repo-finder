@@ -42,10 +42,8 @@ export function validateConfig(): void {
   }
 
   if (errors.length > 0) {
-    throw new Error(
-      `Configuration validation failed:\n${errors.join('\n')}`,
-    )
+    throw new Error(`Configuration validation failed:\n${errors.join('\n')}`)
   }
 
-  console.log('✅ Configuration validated successfully')
+  console.info('✅ Configuration validated successfully')
 }

@@ -2,8 +2,6 @@
 
 First off, thank you for considering contributing to Open Source Finder! 🎉
 
-It's people like you that make Open Source Finder such a great tool for discovering amazing open source projects.
-
 ## Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
@@ -14,7 +12,7 @@ It's people like you that make Open Source Finder such a great tool for discover
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by our Code of Conduct. By participating, you are expected to uphold this code.
+This project and everyone participating in it is governed by our [Code of Conduct] (CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
 ## How Can I Contribute?
 
@@ -49,7 +47,7 @@ Unsure where to begin? Look for issues labeled:
 ### Pull Requests
 
 1. Fork the repo and create your branch from `main`
-2. If you've added code, add tests (when we have testing setup)
+2. If you've added code, add tests
 3. Ensure the code builds successfully
 4. Make sure your code lints (run `npm run lint`)
 5. Update documentation if needed
@@ -65,12 +63,14 @@ Unsure where to begin? Look for issues labeled:
 ### Setup Steps
 
 1. **Fork and clone the repository**
+
    ```bash
    git clone https://github.com/YOUR_USERNAME/open-source-finder.git
    cd open-source-finder
    ```
 
 2. **Set up the backend**
+
    ```bash
    cd backend
    npm install
@@ -79,6 +79,7 @@ Unsure where to begin? Look for issues labeled:
    ```
 
 3. **Set up the frontend**
+
    ```bash
    cd ../frontend
    npm install
@@ -88,18 +89,21 @@ Unsure where to begin? Look for issues labeled:
 4. **Run in development mode**
 
    Terminal 1 (Backend):
+
    ```bash
    cd backend
    npm run dev
    ```
 
    Terminal 2 (Frontend):
+
    ```bash
    cd frontend
    npm run dev
    ```
 
 5. **Verify everything works**
+
    ```bash
    # Check code style
    cd backend
@@ -136,6 +140,7 @@ Closes #123
 ```
 
 **Types:**
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation changes
@@ -158,6 +163,7 @@ Closes #123
 ### Code Organization
 
 **Backend:**
+
 ```
 src/
 ├── config/       # Configuration and environment
@@ -168,6 +174,7 @@ src/
 ```
 
 **Frontend:**
+
 ```
 src/
 ├── components/   # React components

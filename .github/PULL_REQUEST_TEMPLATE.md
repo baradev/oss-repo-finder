@@ -1,9 +1,11 @@
 ## Description
+
 Please include a summary of the changes and which issue is fixed. Include relevant motivation and context.
 
 Fixes # (issue)
 
 ## Type of change
+
 Please delete options that are not relevant.
 
 - [ ] Bug fix (non-breaking change which fixes an issue)
@@ -12,13 +14,12 @@ Please delete options that are not relevant.
 - [ ] Documentation update
 
 ## How Has This Been Tested?
+
 Please describe the tests that you ran to verify your changes.
 
-- [ ] Test A
-- [ ] Test B
-
 ## Checklist
-- [ ] My code follows the style guidelines (run `npm run lint` if available)
+
+- [ ] My code follows the style guidelines (run `npm run lint`)
 - [ ] I have performed a self-review of my own code
 - [ ] I have tested my changes locally with `npm run dev`
 - [ ] I have commented my code, particularly in hard-to-understand areas
