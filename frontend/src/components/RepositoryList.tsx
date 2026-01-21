@@ -14,7 +14,7 @@ export function RepositoryList({ repos }: RepositoryListProps) {
   }
 
   return (
-    <ul style={{ listStyle: 'none', padding: 0 }}>
+    <ul className="list-none p-0">
       {repos.map((repo) => (
         <RepositoryCard key={repo.id} repo={repo} />
       ))}

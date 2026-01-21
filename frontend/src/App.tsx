@@ -24,7 +24,7 @@ function App() {
   }
 
   return (
-    <div style={{ padding: '1.5rem', maxWidth: 900, margin: '0 auto' }}>
+    <div className="p-6 max-w-4xl mx-auto">
       <h1>OSS Repo Finder</h1>
 
       <SearchForm onSearch={handleSearch} isLoading={loading} />
