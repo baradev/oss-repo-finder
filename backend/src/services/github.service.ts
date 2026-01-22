@@ -27,7 +27,13 @@ export class GitHubService {
     totalCount: number
     items: Repository[]
   }> {
-    const { q = '', language, sort = 'stars', order = 'desc', page = '1' } = params
+    const {
+      q = '',
+      language,
+      sort = 'stars',
+      order = 'desc',
+      page = '1',
+    } = params
 
     // Build search query
     let query = q.trim() || 'stars:>100'
@@ -60,9 +66,7 @@ export class GitHubService {
     // Handle non-OK responses
     if (!response.ok) {
       const errorText = await response.text()
-      throw new Error(
-        `GitHub API error: ${response.status} - ${errorText}`,
-      )
+      throw new Error(`GitHub API error: ${response.status} - ${errorText}`)
     }
 
     const data = (await response.json()) as GitHubSearchResponse
