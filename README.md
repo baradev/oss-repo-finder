@@ -4,7 +4,10 @@ A full-stack application for discovering open source repositories on GitHub. Bui
 
 ## Features
 
-- 🔍 Search repositories by language and keywords
+- 🔍 Search GitHub repositories by keyword
+- 🏷️ Filter by programming language (TypeScript, JavaScript, Python, Go, Rust)
+- 📊 View repository stats (stars, open issues, owner information)
+- 🔗 Direct links to repositories on GitHub
 
 ## Project Structure
 
@@ -47,6 +50,7 @@ open-source-finder/
 - **Custom Hooks**: Reusable stateful logic (`useRepositories`)
 - **Service Layer**: Centralized API communication
 - **Type Safety**: Shared types between components
+- **Tailwind CSS**: Utility-first styling
 - **Clean Separation**: UI, logic, and API clearly separated
 
 ## Getting Started
@@ -99,9 +103,11 @@ open-source-finder/
    The API will be available at `http://localhost:3001`
 
 2. **Start the frontend** (from `frontend/` directory, in a new terminal)
+
    ```bash
    npm run dev
    ```
+
    The app will be available at `http://localhost:5173`
 
 ### Building for Production
@@ -156,7 +162,8 @@ To get higher rate limits from GitHub API:
 - React 19
 - TypeScript
 - Vite
-- ESLint
+- Tailwind CSS
+- ESLint + Prettier
 
 **Backend:**
 
@@ -164,18 +171,7 @@ To get higher rate limits from GitHub API:
 - Fastify
 - TypeScript
 - GitHub API
-
-## Best Practices Implemented
-
-- ✅ Environment variable management
-- ✅ Layered architecture (separation of concerns)
-- ✅ TypeScript with strict mode
-- ✅ Error handling middleware
-- ✅ Component composition
-- ✅ Custom React hooks
-- ✅ Service layer pattern
-- ✅ Type-safe API contracts
-- ✅ Configuration validation
+- ESLint + Prettier
 
 ## Scripts
 
@@ -184,13 +180,38 @@ To get higher rate limits from GitHub API:
 - `npm run dev` - Start development server with hot reload
 - `npm run build` - Compile TypeScript
 - `npm start` - Run production server
+- `npm run lint` - Run ESLint
+- `npm run format` - Format code with Prettier
+- `npm run format:check` - Check code formatting
 
 ### Frontend
 
 - `npm run dev` - Start Vite dev server
-- `npm run build` - Build for production
+- `npm run build` - Build for production (includes type checking)
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
+- `npm run format` - Format code with Prettier
+- `npm run format:check` - Check code formatting
+
+## CI/CD
+
+This project uses GitHub Actions for continuous integration. On every pull request and push to `main`, the workflow automatically:
+
+- ✅ Checks code formatting with Prettier
+- ✅ Runs ESLint to ensure code quality
+- ✅ Performs TypeScript type checking
+- ✅ Builds both frontend and backend
+
+See [`.github/workflows/ci.yml`](.github/workflows/ci.yml) for the full configuration.
+
+## Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
+
+- Setting up your development environment
+- Code style and formatting requirements
+- Pull request process
+- Commit message conventions
 
 ## License
 
