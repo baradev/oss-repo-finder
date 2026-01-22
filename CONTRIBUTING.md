@@ -65,8 +65,8 @@ Unsure where to begin? Look for issues labeled:
 1. **Fork and clone the repository**
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/open-source-finder.git
-   cd open-source-finder
+   git clone https://github.com/YOUR_USERNAME/oss-repo-finder.git
+   cd oss-repo-finder
    ```
 
 2. **Set up the backend**

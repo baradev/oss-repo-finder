@@ -66,8 +66,8 @@ open-source-finder/
 1. **Clone the repository**
 
    ```bash
-   git clone <your-repo-url>
-   cd open-source-finder
+   git clone https://github.com/baradev/oss-repo-finder.git
+   cd oss-repo-finder
    ```
 
 2. **Set up the backend**
