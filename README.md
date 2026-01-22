@@ -1,4 +1,4 @@
-# Open Source Finder
+# OSS Repo Finder
 
 A full-stack application for discovering open source repositories on GitHub. Built with React, TypeScript, and Fastify.
 
