@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useRepositories } from './hooks/useRepositories'
 import { SearchForm } from './components/SearchForm'
 import { RepositoryList } from './components/RepositoryList'
@@ -20,11 +19,6 @@ function App() {
     nextPage,
     previousPage,
   } = useRepositories()
-
-  // Fetch initial results on mount
-  useEffect(() => {
-    searchRepositories({ language: 'TypeScript' })
-  }, [searchRepositories])
 
   const handleSearch = (query: string, language: string) => {
     searchRepositories({
