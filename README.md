@@ -94,6 +94,16 @@ open-source-finder/
 
 ### Running the Application
 
+**Quick Start (Recommended)** - From the project root:
+
+```bash
+npm run dev
+```
+
+This starts both backend and frontend servers simultaneously. The backend will run on `http://localhost:3001` and the frontend on `http://localhost:5173`.
+
+**Alternative** - Run servers separately:
+
 1. **Start the backend** (from `backend/` directory)
 
    ```bash
@@ -175,7 +185,20 @@ To get higher rate limits from GitHub API:
 
 ## Scripts
 
-### Backend
+### Root-Level Scripts (Recommended)
+
+Run these from the project root to work with both frontend and backend:
+
+- `npm run dev` - Start both backend and frontend dev servers simultaneously
+- `npm run ci` - Run all checks (format, lint, build) for both services
+- `npm run format` - Format code with Prettier for both services
+- `npm run format:check` - Check code formatting for both services
+- `npm run lint` - Run ESLint for both services
+- `npm run build` - Build both frontend and backend
+
+### Backend Scripts
+
+Run these from the `backend/` directory:
 
 - `npm run dev` - Start development server with hot reload
 - `npm run build` - Compile TypeScript
@@ -184,7 +207,9 @@ To get higher rate limits from GitHub API:
 - `npm run format` - Format code with Prettier
 - `npm run format:check` - Check code formatting
 
-### Frontend
+### Frontend Scripts
+
+Run these from the `frontend/` directory:
 
 - `npm run dev` - Start Vite dev server
 - `npm run build` - Build for production (includes type checking)

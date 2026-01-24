@@ -48,8 +48,8 @@ Unsure where to begin? Look for issues labeled:
 
 1. Fork the repo and create your branch from `main`
 2. If you've added code, add tests
-3. Ensure the code builds successfully
-4. Make sure your code lints (run `npm run lint`)
+3. **Run all checks before submitting**: `npm run ci` (from project root)
+4. Ensure all checks pass (formatting, linting, building)
 5. Update documentation if needed
 
 ## Development Setup
@@ -88,6 +88,16 @@ Unsure where to begin? Look for issues labeled:
 
 4. **Run in development mode**
 
+   **Option 1: Quick Start (Recommended)** - From project root:
+
+   ```bash
+   npm run dev
+   ```
+
+   This starts both backend and frontend servers in one command.
+
+   **Option 2: Run separately** - In two terminals:
+
    Terminal 1 (Backend):
 
    ```bash
@@ -104,6 +114,16 @@ Unsure where to begin? Look for issues labeled:
 
 5. **Verify everything works**
 
+   **Recommended** - Run all checks from project root:
+
+   ```bash
+   npm run ci
+   ```
+
+   This runs format checks, linting, and builds for both frontend and backend.
+
+   **Alternative** - Run checks individually:
+
    ```bash
    # Check code style
    cd backend
@@ -113,8 +133,6 @@ Unsure where to begin? Look for issues labeled:
    cd ../frontend
    npm run lint
    ```
-
-   Note: You don't need to run `npm run build` - the CI/CD pipeline will do that automatically!
 
 ## Pull Request Process
 
