@@ -34,6 +34,10 @@ jobs:
         working-directory: frontend
         run: npm run lint
 
+      - name: Run tests
+        working-directory: frontend
+        run: npm test -- --run
+
       - name: Build (includes type checking)
         working-directory: frontend
         run: npm run build
@@ -64,6 +68,10 @@ jobs:
       - name: Run ESLint
         working-directory: backend
         run: npm run lint
+
+      - name: Run tests
+        working-directory: backend
+        run: npm test -- --run
 
       - name: Build (includes type checking)
         working-directory: backend
