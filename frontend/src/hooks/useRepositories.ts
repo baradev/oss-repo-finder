@@ -12,7 +12,9 @@ export function useRepositories() {
   const [error, setError] = useState<string | null>(null)
   const [totalCount, setTotalCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
-  const [lastSearchParams, setLastSearchParams] = useState<Omit<SearchParams, 'page'>>({})
+  const [lastSearchParams, setLastSearchParams] = useState<
+    Omit<SearchParams, 'page'>
+  >({})
 
   /**
    * Search for repositories
