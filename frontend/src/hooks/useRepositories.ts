@@ -21,7 +21,6 @@ export function useRepositories() {
   } = useQuery({
     queryKey: ['repositories', searchParams],
     queryFn: () => apiService.searchRepositories(searchParams),
-    enabled: !!searchParams.language || !!searchParams.q, // Only run query if we have search criteria
   })
 
   const repos = data?.items || []
