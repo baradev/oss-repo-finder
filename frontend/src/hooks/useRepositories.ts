@@ -1,88 +1,75 @@
 import { useState, useCallback } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { apiService } from '../services/api.service'
-import type { Repository, SearchParams } from '../types'
+import type { SearchParams } from '../types'
 
 /**
  * Hook for managing repository search state and operations
- * Encapsulates all logic for fetching and managing repository data
+ * Uses TanStack Query for automatic caching and state management
  */
 export function useRepositories() {
-  const [repos, setRepos] = useState<Repository[]>([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [totalCount, setTotalCount] = useState(0)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [lastSearchParams, setLastSearchParams] = useState<
-    Omit<SearchParams, 'page'>
-  >({})
+  const [searchParams, setSearchParams] = useState<SearchParams>({
+    language: 'TypeScript',
+    page: 1,
+  })
+
+  // Use TanStack Query to fetch and cache repository data
+  const {
+    data,
+    isLoading,
+    error: queryError,
+  } = useQuery({
+    queryKey: ['repositories', searchParams],
+    queryFn: () => apiService.searchRepositories(searchParams),
+    enabled: !!searchParams.language || !!searchParams.q, // Only run query if we have search criteria
+  })
+
+  const repos = data?.items || []
+  const totalCount = data?.totalCount || 0
+  const currentPage = searchParams.page || 1
+  const totalPages = Math.ceil(totalCount / 20)
+  const error = queryError ? (queryError as Error).message : null
 
   /**
    * Search for repositories
-   * @param params - Search parameters
-   * Wrapped in useCallback to prevent unnecessary re-renders
+   * Updates search params which triggers a new query (or uses cached data)
    */
-  const searchRepositories = useCallback(async (params: SearchParams) => {
-    setLoading(true)
-    setError(null)
-
-    try {
-      const data = await apiService.searchRepositories(params)
-      setRepos(data.items)
-      setTotalCount(data.totalCount)
-      setCurrentPage(params.page || 1)
-
-      // Store search params (without page) for pagination
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { page, ...otherParams } = params
-      setLastSearchParams(otherParams)
-    } catch (err) {
-      const message = err instanceof Error ? err.message : 'Unknown error'
-      setError(message)
-      setRepos([])
-      setTotalCount(0)
-    } finally {
-      setLoading(false)
-    }
+  const searchRepositories = useCallback((params: SearchParams) => {
+    setSearchParams({ ...params, page: params.page || 1 })
   }, [])
 
   /**
    * Clear search results
-   * Wrapped in useCallback for consistency
    */
   const clearResults = useCallback(() => {
-    setRepos([])
-    setTotalCount(0)
-    setError(null)
-    setCurrentPage(1)
-    setLastSearchParams({})
+    setSearchParams({ page: 1 })
   }, [])
 
   /**
    * Navigate to next page
    */
   const nextPage = useCallback(() => {
-    const totalPages = Math.ceil(totalCount / 20) // 20 items per page
     if (currentPage < totalPages) {
-      searchRepositories({ ...lastSearchParams, page: currentPage + 1 })
+      setSearchParams((prev) => ({ ...prev, page: currentPage + 1 }))
     }
-  }, [currentPage, totalCount, lastSearchParams, searchRepositories])
+  }, [currentPage, totalPages])
 
   /**
    * Navigate to previous page
    */
   const previousPage = useCallback(() => {
     if (currentPage > 1) {
-      searchRepositories({ ...lastSearchParams, page: currentPage - 1 })
+      setSearchParams((prev) => ({ ...prev, page: currentPage - 1 }))
     }
-  }, [currentPage, lastSearchParams, searchRepositories])
+  }, [currentPage])
 
   return {
     repos,
-    loading,
+    loading: isLoading,
     error,
     totalCount,
     currentPage,
-    totalPages: Math.ceil(totalCount / 20),
+    totalPages,
     searchRepositories,
     clearResults,
     nextPage,
