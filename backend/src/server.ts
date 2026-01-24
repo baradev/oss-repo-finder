@@ -1,23 +1,10 @@
-import Fastify from 'fastify'
-import { reposRoutes } from './routes/repos.js'
+import { buildApp } from './app.js'
 import { config, validateConfig } from './config/index.js'
-import { errorHandler } from './middleware/errorHandler.js'
 
 // Validate configuration at startup
 validateConfig()
 
-const server = Fastify({
-  logger: true,
-})
-
-// Register error handler
-server.setErrorHandler(errorHandler)
-
-server.register(import('@fastify/cors'), {
-  origin: config.cors.origin,
-})
-
-server.register(reposRoutes, { prefix: '/api/repos' })
+const server = buildApp()
 
 const start = async () => {
   try {
