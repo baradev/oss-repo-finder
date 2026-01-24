@@ -3,13 +3,23 @@ import { useRepositories } from './hooks/useRepositories'
 import { SearchForm } from './components/SearchForm'
 import { RepositoryList } from './components/RepositoryList'
 import { ErrorMessage } from './components/ErrorMessage'
+import { Pagination } from './components/Pagination'
 
 /**
  * Main application component
  * Orchestrates repository search functionality
  */
 function App() {
-  const { repos, loading, error, searchRepositories } = useRepositories()
+  const {
+    repos,
+    loading,
+    error,
+    currentPage,
+    totalPages,
+    searchRepositories,
+    nextPage,
+    previousPage,
+  } = useRepositories()
 
   // Fetch initial results on mount
   useEffect(() => {
@@ -32,6 +42,16 @@ function App() {
       {error && <ErrorMessage message={error} />}
 
       {!loading && <RepositoryList repos={repos} />}
+
+      {!loading && repos.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPrevious={previousPage}
+          onNext={nextPage}
+          isLoading={loading}
+        />
+      )}
     </div>
   )
 }
