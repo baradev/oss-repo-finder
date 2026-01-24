@@ -30,6 +30,7 @@ export function useRepositories() {
       setCurrentPage(params.page || 1)
 
       // Store search params (without page) for pagination
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { page, ...otherParams } = params
       setLastSearchParams(otherParams)
     } catch (err) {
