@@ -1,5 +1,6 @@
 import Fastify from 'fastify'
 import { reposRoutes } from './routes/repos.js'
+import { issuesRoutes } from './routes/issues.js'
 import { config } from './config/index.js'
 import { errorHandler } from './middleware/errorHandler.js'
 
@@ -22,6 +23,7 @@ export function buildApp() {
 
   // Register routes
   app.register(reposRoutes, { prefix: '/api/repos' })
+  app.register(issuesRoutes, { prefix: '/api/issues' })
 
   return app
 }

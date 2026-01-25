@@ -1,51 +1,49 @@
-import { useRepositories } from './hooks/useRepositories'
-import { SearchForm } from './components/SearchForm'
-import { RepositoryList } from './components/RepositoryList'
-import { ErrorMessage } from './components/ErrorMessage'
-import { Pagination } from './components/Pagination'
+import { useState } from 'react'
+import { RepositoriesPage } from './components/RepositoriesPage'
+import { IssuesPage } from './components/IssuesPage'
+
+type Page = 'repositories' | 'issues'
 
 /**
  * Main application component
- * Orchestrates repository search functionality
+ * Handles navigation between repositories and issues pages
  */
 function App() {
-  const {
-    repos,
-    loading,
-    error,
-    currentPage,
-    totalPages,
-    searchRepositories,
-    nextPage,
-    previousPage,
-  } = useRepositories()
-
-  const handleSearch = (query: string, language: string) => {
-    searchRepositories({
-      q: query || undefined,
-      language: language || undefined,
-    })
-  }
+  const [currentPage, setCurrentPage] = useState<Page>('repositories')
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1>OSS Repo Finder</h1>
+    <div className="min-h-screen bg-gray-50">
+      {/* Navigation tabs */}
+      <nav className="bg-white border-b border-gray-200">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="flex gap-8">
+            <button
+              onClick={() => setCurrentPage('repositories')}
+              className={`py-4 px-2 border-b-2 font-medium transition-colors ${
+                currentPage === 'repositories'
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-600 hover:text-gray-800 hover:border-gray-300'
+              }`}
+            >
+              Repositories
+            </button>
+            <button
+              onClick={() => setCurrentPage('issues')}
+              className={`py-4 px-2 border-b-2 font-medium transition-colors ${
+                currentPage === 'issues'
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-600 hover:text-gray-800 hover:border-gray-300'
+              }`}
+            >
+              Good First Issues
+            </button>
+          </div>
+        </div>
+      </nav>
 
-      <SearchForm onSearch={handleSearch} isLoading={loading} />
-
-      {error && <ErrorMessage message={error} />}
-
-      {!loading && <RepositoryList repos={repos} />}
-
-      {!loading && repos.length > 0 && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPrevious={previousPage}
-          onNext={nextPage}
-          isLoading={loading}
-        />
-      )}
+      {/* Page content */}
+      {currentPage === 'repositories' && <RepositoriesPage />}
+      {currentPage === 'issues' && <IssuesPage />}
     </div>
   )
 }

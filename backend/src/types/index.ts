@@ -4,3 +4,4 @@
  */
 
 export * from './repo.types'
+export * from './issue.types'

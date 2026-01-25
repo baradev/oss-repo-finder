@@ -1,5 +1,10 @@
 import { config } from '../config'
-import type { SearchParams, SearchResponse } from '../types'
+import type {
+  SearchParams,
+  SearchResponse,
+  IssueSearchParams,
+  IssueSearchResponse,
+} from '../types'
 
 /**
  * API Service for backend communication
@@ -34,6 +39,40 @@ class ApiService {
     if (!response.ok) {
       // Try to get error message from response
       let errorMessage = 'Failed to fetch repositories'
+      try {
+        const errorData = await response.json()
+        errorMessage = errorData.message || errorMessage
+      } catch {
+        // If parsing fails, use default message
+      }
+      throw new Error(errorMessage)
+    }
+
+    return response.json()
+  }
+
+  /**
+   * Search issues via backend API
+   * @param params - Search parameters (language, labels, sort, etc.)
+   * @returns Search results with issues
+   */
+  async searchIssues(params: IssueSearchParams): Promise<IssueSearchResponse> {
+    const searchParams = new URLSearchParams()
+
+    // Add parameters to URL if they exist
+    if (params.language) searchParams.set('language', params.language)
+    if (params.labels) searchParams.set('labels', params.labels)
+    if (params.sort) searchParams.set('sort', params.sort)
+    if (params.order) searchParams.set('order', params.order)
+    if (params.page) searchParams.set('page', params.page.toString())
+
+    const url = `${this.baseUrl}/api/issues/search?${searchParams.toString()}`
+
+    const response = await fetch(url)
+
+    if (!response.ok) {
+      // Try to get error message from response
+      let errorMessage = 'Failed to fetch issues'
       try {
         const errorData = await response.json()
         errorMessage = errorData.message || errorMessage

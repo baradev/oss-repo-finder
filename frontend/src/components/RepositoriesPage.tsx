@@ -1,0 +1,54 @@
+import { useRepositories } from '../hooks/useRepositories'
+import { SearchForm } from './SearchForm'
+import { RepositoryList } from './RepositoryList'
+import { ErrorMessage } from './ErrorMessage'
+import { Pagination } from './Pagination'
+
+/**
+ * Repositories page component
+ * Main page for searching GitHub repositories
+ */
+export function RepositoriesPage() {
+  const {
+    repos,
+    loading,
+    error,
+    currentPage,
+    totalPages,
+    searchRepositories,
+    nextPage,
+    previousPage,
+  } = useRepositories()
+
+  const handleSearch = (query: string, language: string) => {
+    searchRepositories({
+      q: query || undefined,
+      language: language || undefined,
+    })
+  }
+
+  return (
+    <div className="p-6 max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold mb-2">OSS Repo Finder</h1>
+      <p className="text-gray-600 mb-6">
+        Discover open source repositories on GitHub
+      </p>
+
+      <SearchForm onSearch={handleSearch} isLoading={loading} />
+
+      {error && <ErrorMessage message={error} />}
+
+      {!loading && <RepositoryList repos={repos} />}
+
+      {!loading && repos.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPrevious={previousPage}
+          onNext={nextPage}
+          isLoading={loading}
+        />
+      )}
+    </div>
+  )
+}
