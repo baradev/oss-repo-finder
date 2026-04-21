@@ -21,7 +21,10 @@ const persister = createSyncStoragePersister({ storage: window.localStorage })
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <PersistQueryClientProvider client={queryClient} persistOptions={{ persister, maxAge: 30 * 60 * 1000 }}>
+    <PersistQueryClientProvider
+      client={queryClient}
+      persistOptions={{ persister, maxAge: 30 * 60 * 1000 }}
+    >
       <App />
     </PersistQueryClientProvider>
   </StrictMode>,
