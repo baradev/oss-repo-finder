@@ -15,6 +15,7 @@ import type {
 export class GitHubService {
   private readonly baseUrl: string
   private readonly token: string
+  private readonly repoCache = new Map<string, any>()
 
   constructor() {
     this.baseUrl = config.github.apiUrl
@@ -236,6 +237,10 @@ export class GitHubService {
    * @param repoUrl - GitHub API repository URL
    */
   private async fetchRepositoryDetails(repoUrl: string): Promise<any> {
+    if (this.repoCache.has(repoUrl)) {
+      return this.repoCache.get(repoUrl)
+    }
+
     const headers: HeadersInit = {
       Accept: 'application/vnd.github+json',
     }
@@ -250,7 +255,9 @@ export class GitHubService {
       throw new Error(`Failed to fetch repository: ${response.status}`)
     }
 
-    return response.json()
+    const data = await response.json()
+    this.repoCache.set(repoUrl, data)
+    return data
   }
 }
 
