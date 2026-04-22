@@ -12,7 +12,7 @@ const repoMessages = [
 ]
 
 const issueMessages = [
-  'Hunting for issues that won\'t bite...',
+  "Hunting for issues that won't bite...",
   'Finding your perfect first contribution...',
   'Searching for low-hanging fruit...',
   'Locating your open source destiny...',
@@ -29,7 +29,7 @@ interface LoadingStateProps {
 export function LoadingState({ variant = 'repos' }: LoadingStateProps) {
   const messages = variant === 'repos' ? repoMessages : issueMessages
   const [messageIndex, setMessageIndex] = useState(() =>
-    Math.floor(Math.random() * messages.length)
+    Math.floor(Math.random() * messages.length),
   )
   const [visible, setVisible] = useState(true)
 
