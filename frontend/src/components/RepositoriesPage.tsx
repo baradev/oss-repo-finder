@@ -3,6 +3,7 @@ import { SearchForm } from './SearchForm'
 import { RepositoryList } from './RepositoryList'
 import { ErrorMessage } from './ErrorMessage'
 import { Pagination } from './Pagination'
+import { LoadingState } from './LoadingState'
 
 /**
  * Repositories page component
@@ -62,6 +63,8 @@ export function RepositoriesPage() {
       <SearchForm onSearch={handleSearch} isLoading={loading} />
 
       {error && <ErrorMessage message={error} />}
+
+      {loading && <LoadingState variant="repos" />}
 
       {!loading && <RepositoryList repos={repos} />}
 

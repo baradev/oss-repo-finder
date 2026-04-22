@@ -3,6 +3,7 @@ import { IssueFilterForm } from './IssueFilterForm'
 import { IssueList } from './IssueList'
 import { ErrorMessage } from './ErrorMessage'
 import { Pagination } from './Pagination'
+import { LoadingState } from './LoadingState'
 
 /**
  * Issues page component
@@ -47,6 +48,8 @@ export function IssuesPage() {
           Found {totalCount.toLocaleString()} issues
         </p>
       )}
+
+      {loading && <LoadingState variant="issues" />}
 
       {!loading && <IssueList issues={issues} />}
 
