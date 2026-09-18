@@ -8,6 +8,14 @@ import type {
   IssueSearchQuery,
 } from '../types/index.js'
 
+const DEFAULT_SEARCH_TTL_MS = 24 * 60 * 60 * 1000 // 24h for the default (no query) landing view
+const CUSTOM_SEARCH_TTL_MS = 30 * 60 * 1000 // 30min for explicit user searches
+
+type CachedSearch = {
+  expiresAt: number
+  result: { totalCount: number; items: Repository[] }
+}
+
 /**
  * Service for interacting with GitHub API
  * Handles all GitHub-related business logic
@@ -16,6 +24,7 @@ export class GitHubService {
   private readonly baseUrl: string
   private readonly token: string
   private readonly repoCache = new Map<string, any>()
+  private readonly searchCache = new Map<string, CachedSearch>()
 
   constructor() {
     this.baseUrl = config.github.apiUrl
@@ -39,6 +48,8 @@ export class GitHubService {
       page = '1',
     } = params
 
+    const isDefaultSearch = !q.trim()
+
     // Build search query
     let query = q.trim() || 'stars:>100'
     if (language) {
@@ -53,6 +64,12 @@ export class GitHubService {
       per_page: '20',
       page,
     })
+
+    const cacheKey = searchParams.toString()
+    const cached = this.searchCache.get(cacheKey)
+    if (cached && cached.expiresAt > Date.now()) {
+      return cached.result
+    }
 
     // Make request to GitHub API
     const url = `${this.baseUrl}/search/repositories?${searchParams.toString()}`
@@ -78,10 +95,15 @@ export class GitHubService {
     // Map GitHub API response to our internal format
     const mappedItems = this.mapRepositories(data.items)
 
-    return {
+    const result = {
       totalCount: data.total_count,
       items: mappedItems,
     }
+
+    const ttl = isDefaultSearch ? DEFAULT_SEARCH_TTL_MS : CUSTOM_SEARCH_TTL_MS
+    this.searchCache.set(cacheKey, { expiresAt: Date.now() + ttl, result })
+
+    return result
   }
 
   /**
