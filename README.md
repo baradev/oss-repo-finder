@@ -8,6 +8,7 @@ A full-stack application for discovering open source repositories on GitHub. Bui
 - 🏷️ Filter by programming language (TypeScript, JavaScript, Python, Go, Rust)
 - 📊 View repository stats (stars, open issues, owner information)
 - 🔗 Direct links to repositories on GitHub
+- 🌱 Browse beginner-friendly issues (labeled `good-first-issue`, `help-wanted`) across GitHub, filterable by label and language
 
 ## Project Structure
 
@@ -47,7 +48,8 @@ open-source-finder/
 ### Frontend
 
 - **Component Composition**: Small, focused components
-- **Custom Hooks**: Reusable stateful logic (`useRepositories`)
+- **Custom Hooks**: Reusable stateful logic (`useRepositories`, `useIssues`)
+- **Data Fetching & Caching**: TanStack Query, with results persisted to `localStorage` across sessions
 - **Service Layer**: Centralized API communication
 - **Type Safety**: Shared types between components
 - **Tailwind CSS**: Utility-first styling
@@ -172,7 +174,9 @@ To get higher rate limits from GitHub API:
 - React 19
 - TypeScript
 - Vite
+- TanStack Query (React Query)
 - Tailwind CSS
+- Vitest + React Testing Library
 - ESLint + Prettier
 
 **Backend:**
@@ -181,6 +185,7 @@ To get higher rate limits from GitHub API:
 - Fastify
 - TypeScript
 - GitHub API
+- Vitest
 - ESLint + Prettier
 
 ## Scripts
@@ -190,10 +195,11 @@ To get higher rate limits from GitHub API:
 Run these from the project root to work with both frontend and backend:
 
 - `npm run dev` - Start both backend and frontend dev servers simultaneously
-- `npm run ci` - Run all checks (format, lint, build) for both services
+- `npm run ci` - Run all checks (format, lint, test, build) for both services
 - `npm run format` - Format code with Prettier for both services
 - `npm run format:check` - Check code formatting for both services
 - `npm run lint` - Run ESLint for both services
+- `npm run test` - Run tests for both services
 - `npm run build` - Build both frontend and backend
 
 ### Backend Scripts
@@ -203,6 +209,7 @@ Run these from the `backend/` directory:
 - `npm run dev` - Start development server with hot reload
 - `npm run build` - Compile TypeScript
 - `npm start` - Run production server
+- `npm test` - Run tests
 - `npm run lint` - Run ESLint
 - `npm run format` - Format code with Prettier
 - `npm run format:check` - Check code formatting
@@ -214,6 +221,7 @@ Run these from the `frontend/` directory:
 - `npm run dev` - Start Vite dev server
 - `npm run build` - Build for production (includes type checking)
 - `npm run preview` - Preview production build
+- `npm test` - Run tests
 - `npm run lint` - Run ESLint
 - `npm run format` - Format code with Prettier
 - `npm run format:check` - Check code formatting
@@ -224,6 +232,7 @@ This project uses GitHub Actions for continuous integration. On every pull reque
 
 - ✅ Checks code formatting with Prettier
 - ✅ Runs ESLint to ensure code quality
+- ✅ Runs the test suite for both services
 - ✅ Performs TypeScript type checking
 - ✅ Builds both frontend and backend
 
